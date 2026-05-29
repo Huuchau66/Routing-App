@@ -1,27 +1,51 @@
-import { Container } from "@mui/material";
-import { useState } from "react";
-import Navbar from "./components/Navbar";
-import JobList from "./components/JobList";
-import PaginationButtons from "./components/Pagination";
-import jobs from "./data/jobs";
+import { useState }
+from "react";
+
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+
+import Navbar
+from "./components/Navbar";
+
+import Home
+from "./pages/Home";
+
+import LoginModal
+from "./components/LoginModal";
 
 function App() {
-  const [page, setPage] = useState(1);
-  const jobsPerPage = 3;
-  const start =(page - 1) * jobsPerPage;
-  const currentJobs =jobs.slice(start, start + jobsPerPage);
+
+  const [open, setOpen] =
+    useState(false);
+
   return (
+
     <>
-      <Navbar />
 
-      <Container sx={{ mt: 4 }}>
+      <Navbar
+        setOpen={setOpen}
+      />
 
-        <JobList jobs={currentJobs} />
+      <Routes>
 
-        <PaginationButtons page={page} setPage={setPage} />
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
-      </Container>
+      </Routes>
+
+      <LoginModal
+        open={open}
+        handleClose={() =>
+          setOpen(false)
+        }
+      />
+
     </>
+
   );
 }
 

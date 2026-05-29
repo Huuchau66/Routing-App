@@ -1,11 +1,25 @@
+import {
+  useContext
+} from "react";
+
+import SearchIcon
+from "@mui/icons-material/Search";
+
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  InputBase,
+  IconButton,
+} from "@mui/material";
+
 import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
+
+import {
+  AuthContext
+} from "../context/AuthContext";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -49,12 +63,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar() {
+function Navbar({
+  setOpen,
+}) {
+
+  const {
+    user,
+    setUser,
+  } = useContext(AuthContext);
+
+  
+
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
+  <Box sx={{ flexGrow: 1 }}>
+
+    <AppBar position="static">
+
+      <Toolbar>
+
+         <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -62,14 +90,13 @@ export default function Navbar() {
             sx={{ mr: 2 }}
           >
           </IconButton>
+          
           <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            Job Routing
-          </Typography>
+          sx={{ flexGrow: 1 }}
+        >
+          Job Routing
+        </Typography>
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -79,8 +106,45 @@ export default function Navbar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-        </Toolbar>
-      </AppBar>
-    </Box>
+
+        {user ? (
+
+          <>
+            <Typography
+              sx={{ mr: 2 }}
+            >
+              {user.username}
+            </Typography>
+
+            <Button
+              color="inherit"
+              onClick={() =>
+                setUser(null)
+              }
+            >
+              Logout
+            </Button>
+          </>
+
+        ) : (
+
+          <Button
+            color="inherit"
+            onClick={() =>
+              setOpen(true)
+            }
+          >
+            Login
+          </Button>
+
+        )}
+
+      </Toolbar>
+
+    </AppBar>
+
+  </Box>
   );
 }
+
+export default Navbar;

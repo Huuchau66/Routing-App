@@ -1,12 +1,12 @@
 import {
   Paper,
+  Card,
+  CardContent,
   Typography,
-  Chip,
-  Box,
-  Button,
 } from "@mui/material";
 
-function JobCard({ job }) {
+function JobCard({ job,handleOpen, }) {
+
   return (
     <Paper
       elevation={3}
@@ -15,35 +15,37 @@ function JobCard({ job }) {
         mb: 2,
       }}
     >
-      <Typography variant="h5">
-        {job.title}
-      </Typography>
 
-      <Typography sx={{ mb: 2 }}>
-        {job.description}
-      </Typography>
+    <Card
+    onClick={() =>
+    handleOpen(job)
+      }
+      sx={{
+        m: 2,
+        cursor: "pointer",
+      }}
+    >
 
-      <Box
-        sx={{
-          display: "flex",
-          gap: 1,
-          flexWrap: "wrap",
-          mb: 2,
-        }}
-      >
-        {job.skills.slice(0, 4).map((skill) => (
-          <Chip
-            key={skill}
-            label={skill}
-          />
-        ))}
-      </Box>
+      <CardContent>
 
-      <Button variant="contained">
-        Apply
-      </Button>
+        <Typography variant="h5">
+          {job.title}
+        </Typography>
+
+        <Typography>
+          {job.company}
+        </Typography>
+
+        <Typography>
+          {job.description}
+        </Typography>
+
+      </CardContent>
+
+    </Card>
     </Paper>
   );
+  
 }
 
 export default JobCard;

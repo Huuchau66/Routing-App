@@ -1,7 +1,13 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
 
-import App from "./App";
+import ReactDOM
+from "react-dom/client";
+
+import App from "./App.jsx";
+
+import {
+  BrowserRouter
+} from "react-router-dom";
 
 import {
   ThemeProvider,
@@ -9,15 +15,41 @@ import {
   CssBaseline,
 } from "@mui/material";
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
+import AuthProvider
+from "./context/AuthProvider.jsx";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <ThemeProvider theme={darkTheme}>
-    <CssBaseline />
-    <App />
-  </ThemeProvider>
+const darkTheme =
+  createTheme({
+
+    palette: {
+      mode: "dark",
+    },
+
+  });
+
+ReactDOM.createRoot(
+  document.getElementById("root")
+).render(
+
+  <React.StrictMode>
+
+    <AuthProvider>
+
+      <BrowserRouter>
+
+        <ThemeProvider
+          theme={darkTheme}
+        >
+
+          <CssBaseline />
+
+          <App />
+
+        </ThemeProvider>
+
+      </BrowserRouter>
+
+    </AuthProvider>
+
+  </React.StrictMode>
 );
